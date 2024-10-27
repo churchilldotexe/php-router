@@ -10,7 +10,12 @@ function dd($value)
 }
 
 
-function isUrl($url): bool
+function isUrl(string $url): bool
 {
     return $_SERVER['REQUEST_URI'] === $url;
+}
+
+function authorize(bool $condition, int $status): void
+{
+    $condition && abort($status);
 }
