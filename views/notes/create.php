@@ -1,10 +1,11 @@
 
-<?php require"partials/header.php" ?>
+<?php require base_path("views/partials/header.php") ?>
+
 
       <div class="min-h-full">
 
-        <?php require"partials/nav.php" ?>
-        <?php require"partials/banner.php"?>
+        <?php require base_path("views/partials/nav.php") ?>
+        <?php require base_path("views/partials/banner.php")?>
 
         <main>
           <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
@@ -18,8 +19,18 @@
 
                     <div class="col-span-full">
                       <label for="body" class="block text-sm font-medium leading-6 text-gray-900">Note</label>
+
                       <div class="mt-2">
-                        <textarea id="body" name="body" rows="3" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
+                        <textarea 
+                          id="body"
+                          name="body"
+                          rows="3"
+                          class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                          <?= isset($error['body']) ? $_POST['body'] : ''?>
+                        </textarea>
+                        <p class="text-red-500 <?=isset($_POST['body']) ? "block" : "hidden" ?>">
+                          <?= $error['body'] ?? '' ?>
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -36,5 +47,5 @@
         </main>
 
       </div>
-<?php require"partials/footer.php" ?>
+<?php require base_path("views/partials/footer.php") ?>
 

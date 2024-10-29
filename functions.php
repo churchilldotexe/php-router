@@ -19,3 +19,14 @@ function authorize(bool $condition, int $status): void
 {
     $condition && abort($status);
 }
+
+function base_path(string $dir)
+{
+    return BASE_PATH . $dir;
+}
+
+function view(string $dir, array $attributes = [])
+{
+    extract($attributes);
+    require base_path("views/{$dir}");
+}

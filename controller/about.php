@@ -1,6 +1,3 @@
 <?php
 
-$title = "About Us";
-
-
-require "views/about.php";
+view("about.php", ['title' => "About Us"]);

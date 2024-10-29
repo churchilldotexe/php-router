@@ -1,7 +1,3 @@
 <?php
 
-
-$title = "Contacts Us";
-
-
-require "views/contacts.php";
+view("contacts.php", ['title' => "Contact Us"]);
