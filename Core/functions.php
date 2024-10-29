@@ -9,7 +9,6 @@ function dd($value)
     die();
 }
 
-
 function isUrl(string $url): bool
 {
     return $_SERVER['REQUEST_URI'] === $url;

@@ -11,7 +11,7 @@
           <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
 
 
-            <form method="POST">
+            <form method="POST" action="/notes">
               <div class="space-y-12">
                 <div class="border-b border-gray-900/10 pb-12">
 
@@ -26,7 +26,7 @@
                           name="body"
                           rows="3"
                           class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                          <?= isset($error['body']) ? $_POST['body'] : ''?>
+                          <?= isset($error['body']) ? $_POST['body'] : '' ?>
                         </textarea>
                         <p class="text-red-500 <?=isset($_POST['body']) ? "block" : "hidden" ?>">
                           <?= $error['body'] ?? '' ?>
