@@ -1,3 +1,3 @@
 <?php
 
-view("contacts.php", ['title' => "Contact Us"]);
+view("contacts.view.php", ['title' => "Contact Us"]);

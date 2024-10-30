@@ -1,4 +1,4 @@
 <?php
 
 
-view("index.php", ['title' => "Home"]);
+view("index.view.php", ['title' => "Home"]);

@@ -1,3 +1,3 @@
 <?php
 
-view("about.php", ['title' => "About Us"]);
+view("about.view.php", ['title' => "About Us"]);

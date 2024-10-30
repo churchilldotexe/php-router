@@ -6,4 +6,4 @@ $title = "Create Notes";
 $error = [];
 
 
-view("notes/create.php", ['title' => "Create Notes", 'error' => $error]);
+view("notes/create.view.php", ['title' => "Create Notes", 'error' => $error]);

@@ -14,6 +14,13 @@ function isUrl(string $url): bool
     return $_SERVER['REQUEST_URI'] === $url;
 }
 
+function abort(int $code = 404): void
+{
+    http_response_code($code);
+    require base_path("views/{$code}.view.php");
+    die();
+}
+
 function authorize(bool $condition, int $status): void
 {
     $condition && abort($status);
