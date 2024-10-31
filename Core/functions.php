@@ -2,11 +2,11 @@
 
 function dd($value)
 {
-    echo "<pre>";
+    echo '<pre>';
     var_dump($value);
-    echo "</pre>";
+    echo '</pre>';
 
-    die();
+    exit();
 }
 
 function isUrl(string $url): bool
@@ -18,7 +18,7 @@ function abort(int $code = 404): void
 {
     http_response_code($code);
     require base_path("views/{$code}.view.php");
-    die();
+    exit();
 }
 
 function authorize(bool $condition, int $status): void
@@ -26,9 +26,27 @@ function authorize(bool $condition, int $status): void
     $condition && abort($status);
 }
 
+function login(array $userInfo)
+{
+
+    $_SESSION['user'] = [
+        'email' => $userInfo['email'],
+    ];
+    session_regenerate_id(true);
+}
+
+function logout()
+{
+    $_SESSION = [];
+    session_destroy();
+
+    $params = session_get_cookie_params();
+    setcookie('PHPSESSID', '', time() - 3600, $params['path'], $params['domain'], $params['secure'], $params['httponly']);
+}
+
 function base_path(string $dir)
 {
-    return BASE_PATH . $dir;
+    return BASE_PATH.$dir;
 }
 
 function view(string $dir, array $attributes = [])

@@ -13,11 +13,12 @@ $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
 if (! $email) {
     $error['email'] = 'Invalid email, Please try again with a valid one.';
 
-    return view('registration/create.view.php', ['error' => $error]);
 }
 if (! $validator->string($password, 7, 255)) {
     $error['password'] = 'Invalid password, Password must be atleast 7 characters.';
+}
 
+if (! empty($error)) {
     return view('registration/create.view.php', ['error' => $error]);
 }
 
@@ -29,8 +30,9 @@ if ($emailCount['count'] >= 1) {
     exit();
 }
 
+$hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 $createQuery = 'INSERT INTO users(email,password) VALUES (:email,:password)';
-$db->query($createQuery, ['email' => $email, 'password' => $password]);
+$db->query($createQuery, ['email' => $email, 'password' => $hashedPassword]);
 
 $_SESSION['user'] = ['email' => $email];
 
