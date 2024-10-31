@@ -2,42 +2,54 @@
 
 namespace Core;
 
+use Core\Middleware\Middleware;
+
 class Router
 {
     protected $routes = [];
 
-    protected function addRoute(string $path, string $controller, string  $method): void
+    protected function addRoute(string $path, string $controller, string $method)
     {
         $this->routes[] = [
             'path' => $path,
             'controller' => $controller,
-            'method' => $method
+            'method' => $method,
+            'middleware' => null,
         ];
 
+        return $this;
     }
+
     protected function abort(int $code = 404): void
     {
         http_response_code($code);
         require base_path("views/{$code}.view.php");
-        die();
+        exit();
     }
 
-    public function get(string $path, string $controller): void
+    public function get(string $path, string $controller)
     {
-        $this->addRoute($path, $controller, "GET");
+        return $this->addRoute($path, $controller, 'GET');
     }
 
-    public function post(string $path, string $controller): void
+    public function post(string $path, string $controller)
     {
-        $this->addRoute($path, $controller, "POST");
+        return $this->addRoute($path, $controller, 'POST');
     }
-    public function delete(string $path, string $controller): void
+
+    public function delete(string $path, string $controller)
     {
-        $this->addRoute($path, $controller, "DELETE");
+        return $this->addRoute($path, $controller, 'DELETE');
     }
-    public function patch(string $path, string $controller): void
+
+    public function patch(string $path, string $controller)
     {
-        $this->addRoute($path, $controller, "PATCH");
+        return $this->addRoute($path, $controller, 'PATCH');
+    }
+
+    public function only(string $key)
+    {
+        return $this->routes[array_key_last($this->routes)]['middleware'] = $key;
     }
 
     public function route(string $path, string $method): void
@@ -45,6 +57,7 @@ class Router
         foreach ($this->routes as $route) {
             if ($route['path'] === $path && $route['method'] === strtoupper($method)) {
 
+                Middleware::resolve($route['middleware']);
                 require base_path($route['controller']);
                 exit();
             }
@@ -53,5 +66,4 @@ class Router
         $this->abort();
 
     }
-
 }
