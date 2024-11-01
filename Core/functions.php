@@ -26,27 +26,17 @@ function authorize(bool $condition, int $status): void
     $condition && abort($status);
 }
 
-function login(array $userInfo)
-{
-
-    $_SESSION['user'] = [
-        'email' => $userInfo['email'],
-    ];
-    session_regenerate_id(true);
-}
-
-function logout()
-{
-    $_SESSION = [];
-    session_destroy();
-
-    $params = session_get_cookie_params();
-    setcookie('PHPSESSID', '', time() - 3600, $params['path'], $params['domain'], $params['secure'], $params['httponly']);
-}
 
 function base_path(string $dir)
 {
     return BASE_PATH.$dir;
+}
+
+function redirect(string $path)
+{
+
+    header("location: {$path}");
+    exit();
 }
 
 function view(string $dir, array $attributes = [])

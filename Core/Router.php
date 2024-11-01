@@ -54,14 +54,14 @@ class Router
         return $this->routes[array_key_last($this->routes)]['middleware'] = $key;
     }
 
-    public function route(string $path, string $method): void
+    public function route(string $path, string $method)
     {
         foreach ($this->routes as $route) {
             if ($route['path'] === $path && $route['method'] === strtoupper($method)) {
 
                 Middleware::resolve($route['middleware']);
-                require base_path($route['controller']);
-                exit();
+
+                return require base_path('http/controller/'.$route['controller']);
             }
         }
 
