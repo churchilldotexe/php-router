@@ -10,12 +10,14 @@ class Router
 
     protected function addRoute(string $path, string $controller, string $method)
     {
-        $this->routes[] = [
-            'path' => $path,
-            'controller' => $controller,
-            'method' => $method,
-            'middleware' => null,
-        ];
+        $middleware = null;
+        /*$this->routes[] = [*/
+        /*    'path' => $path,*/
+        /*    'controller' => $controller,*/
+        /*    'method' => $method,*/
+        /*    'middleware' => null,*/
+        /*];*/
+        $this->routes[] = compact(['path', 'controller', 'method', 'middleware']);
 
         return $this;
     }
